@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 using Unity.Entities;
 using DreamersInc.DamageSystem.Interfaces;
-using DreamersInc.CombatSystem.Animation;
 
 namespace Stats
 {
-    public class EnemyCharacter : BaseCharacter
+    [System.Serializable]
+    public class PlayerCharacter : BaseCharacter
     {
-        public uint EXPgained;
         public CharacterClass BaseStats;
-
         public void SetupDataEntity()
         {
             //Todo get level and stat data
@@ -31,10 +28,10 @@ namespace Stats
             this.GetVital((int)VitalName.Health).StartValue = 500;
             this.GetVital((int)VitalName.Mana).StartValue = 250;
             StatUpdate();
-
         }
 
-        public override void TakeDamage(int Amount, TypeOfDamage typeOf, Element element)
+
+        public override void TakeDamage(int Amount, TypeOfDamage typeOf, Element element = 0)
         {
             //Todo Figure out element resistances, conditional mods, and possible affinity 
             float defense = typeOf switch
@@ -44,43 +41,17 @@ namespace Stats
             };
 
             int damageToProcess = -Mathf.FloorToInt(Amount * defense * Random.Range(.92f, 1.08f));
-            // Debug.Log(damageToProcess + " HP of damage to target "+ Name);
             AdjustHealth health = new() { Value = damageToProcess };
             World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(SelfEntityRef, health);
+
         }
 
         public override void ReactToHit(float impact, Vector3 Test, Vector3 Forward, TypeOfDamage typeOf = TypeOfDamage.Melee, Element element = Element.None)
         {
-            //Todo Figure out element resistances, conditional mods, and possible affinity 
-            float defense = typeOf switch
-            {
-                TypeOfDamage.MagicAoE => MagicDef,
-                TypeOfDamage.Melee => MeleeDef,
-                _ => MeleeDef,
-            };
-           
-            ReactToContact reactTo = new()
-            {
-                ForwardVector = Forward,
-                positionVector = this.transform.position,
-                RightVector = transform.right,
-                HitIntensity = 4.45f,//Todo balance the mathe Mathf.FloorToInt(impact / (defense * 10.0f) * Random.Range(.92f, 1.08f)),
-                HitContactPoint = Test
-            };
-            if (!World.DefaultGameObjectInjectionWorld.EntityManager.HasComponent<ReactToContact>(SelfEntityRef))
-                World.DefaultGameObjectInjectionWorld.EntityManager.AddComponentData(SelfEntityRef, reactTo);
+
         }
 
-    }
-    class EnemyCharacterBaker : Baker<EnemyCharacter>
-    {
-        public override void Bake(EnemyCharacter authoring)
-        {
-            AddComponent(new CharacterStatComponent() { selfEntityRef = authoring.SelfEntityRef });
-            AddComponent(new Enemy());
-            AddBuffer<EffectStatusBuffer>();
-            authoring.SetupDataEntity();
-        }
-    }
 
+      
+    }
 }
