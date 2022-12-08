@@ -18,6 +18,9 @@ namespace Stats.Entities
             BaseCharacterComponent character = new();
             character.SetupDataEntity(authoring.Info);
                 AddComponentObject (character);
+            AddComponent(new PlayerTag());
         }
     }
+
+    public struct PlayerTag : IComponentData { }
 }

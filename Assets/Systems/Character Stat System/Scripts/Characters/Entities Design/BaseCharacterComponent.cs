@@ -22,18 +22,50 @@ namespace Stats.Entities
         public bool InvincibleMode;
 
         [Range(0, 9999)]
-        public int CurHealth;
+        [SerializeField] int _curHealth;
+        public int CurHealth
+        {
+            get { return _curHealth; }
+            set
+            {
+
+                if (value <= 0)
+                    _curHealth = 0;
+                else if (value > MaxHealth && MaxHealth != 0)
+                    _curHealth = MaxHealth;
+                else
+                    _curHealth = value;
+            }
+        }
 
         [Range(0, 9999)]
         [SerializeField] int maxHealth;
         public int MaxHealth { get { return MaxHealthMod + maxHealth; } set { maxHealth = value; } }
         public int MaxHealthMod { get; set; }
         [Range(0, 9999)]
-        public int CurMana;
+        [SerializeField] int _curMana;
+        public int CurMana
+        {
+            get { return _curMana; }
+            set
+            {
+
+                if (value <= 0)
+                    _curMana = 0;
+                else if (value > MaxMana && MaxHealth != 0)
+                    _curMana = MaxMana;
+                else
+                    _curMana = value;
+            }
+        }
         [Range(0, 9999)]
         [SerializeField] int maxMana;
         public int MaxMana { get { return maxMana + MaxHealthMod; } set { maxMana = value; } }
         public int MaxManaMod { get; set; }
+
+        public float HealthRatio => (float)CurHealth / (float)MaxHealth;
+        public float ManaRatio => (float)CurMana / (float)MaxMana;
+
         public bool Dead => !InvincibleMode && CurHealth <= 0;
         public string Name
         {
@@ -143,6 +175,25 @@ namespace Stats.Entities
 
             CurHealth = MaxHealth = GetVital((int)VitalName.Health).AdjustBaseValue;
             CurMana = MaxMana = GetVital((int)VitalName.Mana).AdjustBaseValue;
+        }
+
+        public void AdjustHealth(int adj)
+        {
+            CurHealth += adj;
+            if (CurHealth < 0)
+            {
+                CurHealth = 0;
+                Debug.Log("dead");
+            }
+            if (CurHealth > MaxHealth) { CurHealth = MaxHealth; }
+
+        }
+        public void AdjustMana(int adj)
+        {
+            CurMana += adj;
+            if (CurMana < 0) { CurMana = 0; }
+            if (CurMana > MaxMana) { CurMana = MaxMana; }
+
         }
     }
 }
