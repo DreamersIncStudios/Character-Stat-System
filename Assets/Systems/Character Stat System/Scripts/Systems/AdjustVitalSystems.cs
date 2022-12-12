@@ -19,7 +19,7 @@ namespace DreamersInc.DamageSystem
         protected override void OnUpdate()
         {
 
-            var ecbSingleton = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>();
+            var ecbSingleton = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>();
             var ECB = ecbSingleton.CreateCommandBuffer(World.Unmanaged);
 
             Entities.WithoutBurst().ForEach((Entity entity,BaseCharacterComponent character, in AdjustHealth mod) => {

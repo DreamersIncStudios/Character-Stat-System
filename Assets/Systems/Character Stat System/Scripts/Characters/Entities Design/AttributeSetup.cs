@@ -16,6 +16,7 @@ namespace Stats.Entities
         {
             //Todo get level and stat data
             Init();
+            Name= BaseStats.Name;
             this.Level = BaseStats.Level;
             float ModValue = BaseStats.LevelMod;
             this.GetPrimaryAttribute((int)AttributeName.Strength).BaseValue = (int)(BaseStats.Strength * ModValue);

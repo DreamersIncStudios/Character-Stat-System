@@ -21,4 +21,12 @@ namespace Stats{
         Charisma,
         Luck
     }
+
+    [System.Serializable]
+    public struct StatModifier
+    {
+        public AttributeName Stat;
+        public int BuffValue;
+
+    }
 }

@@ -110,7 +110,7 @@ namespace Stats.Entities
             SetupPrimaryAttributes();
             SetupVitals();
             SetupStats();
-           // SetupAbilities();
+            SetupAbilities();
 
             CurHealth = MaxHealth;
             CurMana = MaxMana;
@@ -164,14 +164,22 @@ namespace Stats.Entities
             SetupStatsBase();
             SetupStatsModifiers();
         }
+        private void SetupAbilities()
+        {
+            for (int cnt = 0; cnt < _ability.Length; cnt++)
+                _ability[cnt] = new Abilities();
+            SetupAbilitesBase();
+            SetupAbilitesModifiers();
+        }
+
         public void StatUpdate()
         {
             for (int i = 0; i < _vital.Length; i++)
                 _vital[i].Update();
             for (int j = 0; j < _stats.Length; j++)
                 _stats[j].Update();
-            //for (int i = 0; i < _ability.Length; i++)
-            //    _ability[i].Update();
+            for (int i = 0; i < _ability.Length; i++)
+                _ability[i].Update();
 
             CurHealth = MaxHealth = GetVital((int)VitalName.Health).AdjustBaseValue;
             CurMana = MaxMana = GetVital((int)VitalName.Mana).AdjustBaseValue;

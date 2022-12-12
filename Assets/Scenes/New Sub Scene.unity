@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2751569361350844026, guid: 16454b1e546bb1d489750cf2e9defeff, type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 2751569361350844027, guid: 16454b1e546bb1d489750cf2e9defeff, type: 3}
       propertyPath: m_Name
       value: Player UI
@@ -145,7 +149,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2751569361350844031, guid: 16454b1e546bb1d489750cf2e9defeff, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2751569361350844031, guid: 16454b1e546bb1d489750cf2e9defeff, type: 3}
       propertyPath: m_AnchorMax.x
@@ -224,7 +228,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16454b1e546bb1d489750cf2e9defeff, type: 3}
---- !u!1001 &1655848139
+--- !u!1001 &384794858
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -234,7 +238,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4877569335769026892, guid: ac3a6cff77d22ff49a28bbb9103bb6d4, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4877569335769026892, guid: ac3a6cff77d22ff49a28bbb9103bb6d4, type: 3}
       propertyPath: m_LocalPosition.x
